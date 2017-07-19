@@ -10,12 +10,12 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     }
 
     stage('Build image') {
-        VERSION = sh (
-          script: "echo \$(sed -nE \'s/^\\s*"version": "(.*?)",$/\1/p\' package.json)",
-          // script: 'echo "1.0.0"',
-          returnStdout: true
-        ).trim()
-        echo "version: ${VERSION}"
+        // VERSION = sh (
+        //   // script: 'echo $(sed -nE \'s/^\\s*"version": "(.*?)",$/\\1/p\' package.json',
+        //   // script: 'echo "1.0.0"',
+        //   returnStdout: true
+        // ).trim()
+        // echo "version: ${VERSION}"
         sh "docker build -t $REGISTRY/$IMAGE:latest --rm=true ."
         //sh './build-docker-image.sh'
         app = docker.image('192.168.56.101:5000/test-nodejs:latest')
@@ -31,7 +31,8 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     stage('Push image') {
 
             app.inside {
-                version = sh(returnStdout: true, script: 'node -e "console.log(require(\'./package.json\').version);"').trim()
+                VERSION = sh(returnStdout: true, script: 'echo $(node -p -e "require(\'./package.json\').version")'
+                echo "version: ${VERSION}"
             }
 
         /* Push the image with two tags:
