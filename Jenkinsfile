@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
-def REGISTRY = "192.168.56.101:5000";
+def REGISTRY = '192.168.56.101:5000',
+    IMAGE = 'test-nodejs'
+
 docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     def app, version
 
@@ -8,7 +10,7 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     }
 
     stage('Build image') {
-        sh "docker build -t $REGISTRY/test-nodejs:latest --rm=true ."
+        sh "docker build -t $REGISTRY/$IMAGE:latest --rm=true ."
         //sh './build-docker-image.sh'
         app = docker.image('192.168.56.101:5000/test-nodejs:latest')
     }
