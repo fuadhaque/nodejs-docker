@@ -22,7 +22,7 @@ docker.withRegistry("https://192.168.56.101:5000", 'docker-registry-credentials-
     stage('Push image') {
 
             app.inside {
-                version = sh(returnStdout: true, script: 'node -e "console.log(require('./package.json').version);"').trim()
+                version = sh(returnStdout: true, script: 'node -e "console.log(require(\'./package.json\').version);"').trim()
             }
 
         /* Push the image with two tags:
