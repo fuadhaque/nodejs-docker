@@ -3,7 +3,7 @@
 def REGISTRY = 'https://192.168.56.101:5000',
     IMAGE = 'shb-ui'
 
-docker.withRegistry($REGISTRY, 'docker-registry-credentials-id') {
+docker.withRegistry("$REGISTRY", 'docker-registry-credentials-id') {
     def app, version
 
     stage('Clone repository') {
