@@ -1,9 +1,6 @@
 #!/usr/bin/env groovy
 
-def REGISTRY = 'https://192.168.56.101:5000',
-    IMAGE = 'shb-ui'
-
-docker.withRegistry("$REGISTRY", 'docker-registry-credentials-id') {
+docker.withRegistry("https://192.168.56.101:5000", 'docker-registry-credentials-id') {
     def app, version
 
     stage('Clone repository') {
@@ -12,7 +9,7 @@ docker.withRegistry("$REGISTRY", 'docker-registry-credentials-id') {
 
     stage('Build image') {
         sh './build-docker-image.sh'
-        app = docker.image('$REGISTRY/$IMAGE:latest')
+        app = docker.image('192.168.56.101:5000/shb-ui:latest')
     }
 
     stage('Test image') {
