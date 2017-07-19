@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
-
-docker.withRegistry("https://192.168.56.101:5000", 'docker-registry-credentials-id') {
+def REGISTRY = "192.168.56.101:5000";
+docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     def app, version
 
     stage('Clone repository') {
@@ -8,7 +8,8 @@ docker.withRegistry("https://192.168.56.101:5000", 'docker-registry-credentials-
     }
 
     stage('Build image') {
-        sh './build-docker-image.sh'
+        sh 'docker build -t 192.168.56.101:5000/test-nodejs:latest --rm=true .'
+        //sh './build-docker-image.sh'
         app = docker.image('192.168.56.101:5000/test-nodejs:latest')
     }
 
