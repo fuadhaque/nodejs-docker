@@ -16,7 +16,7 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
         //   returnStdout: true
         // ).trim()
         // echo "version: ${VERSION}"
-        sh "docker build -t $REGISTRY/$IMAGE-${env.BUILD_NUMBER}:latest --rm=true ."
+        sh "docker build -t $REGISTRY/$IMAGE-${env.BRANCH_NAME}:latest --rm=true ."
         //sh './build-docker-image.sh'
         app = docker.image('192.168.56.101:5000/test-nodejs:latest')
     }
