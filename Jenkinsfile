@@ -25,7 +25,7 @@ docker.withRegistry($REGISTRY, 'docker-registry-credentials-id') {
     stage('Push image') {
          steps{
             app.inside {
-                version = sh(returnStdout: true, script: 'node -e "console.log(require('$APP_HOME/package.json').version);"').trim()
+                version = '1.0.0' //sh(returnStdout: true, script: 'node -e "console.log(require('$APP_HOME/package.json').version);"').trim()
             }
          }
         /* Push the image with two tags:
