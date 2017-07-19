@@ -20,11 +20,11 @@ docker.withRegistry("https://192.168.56.101:5000", 'docker-registry-credentials-
     }
 
     stage('Push image') {
-         steps{
+        
             app.inside {
                 version = '1.0.0' //sh(returnStdout: true, script: 'node -e "console.log(require('$APP_HOME/package.json').version);"').trim()
             }
-         }
+
         /* Push the image with two tags:
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
