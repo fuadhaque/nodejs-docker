@@ -9,7 +9,7 @@ docker.withRegistry("https://192.168.56.101:5000", 'docker-registry-credentials-
 
     stage('Build image') {
         sh './build-docker-image.sh'
-        app = docker.image('192.168.56.101:5000/shb-ui:latest')
+        app = docker.image('192.168.56.101:5000/test-nodejs:latest')
     }
 
     stage('Test image') {
