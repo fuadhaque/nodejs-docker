@@ -10,6 +10,8 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     }
 
     stage('Build image') {
+        PACKAGE_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json)
+        sh 'echo PACKAGE_VERSION: $PACKAGE_VERSION'
         sh "docker build -t $REGISTRY/$IMAGE:latest --rm=true ."
         //sh './build-docker-image.sh'
         app = docker.image('192.168.56.101:5000/test-nodejs:latest')
@@ -32,7 +34,7 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        sh 'echo version: $version'
+
         app.push("${env.BUILD_NUMBER}")
         app.push("latest")
     }
