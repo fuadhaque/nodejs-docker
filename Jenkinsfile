@@ -24,7 +24,7 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     stage('Test image') {
         // Todo
         app.inside {
-            sh 'echo "Tests passed"'
+            sh 'echo "All Tests passed"'
         }
     }
 
