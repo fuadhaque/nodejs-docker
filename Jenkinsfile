@@ -10,8 +10,11 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
     }
 
     stage('Build image') {
-        PACKAGE_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json)
-        sh 'echo PACKAGE_VERSION: $PACKAGE_VERSION'
+        VERSION = sh (
+          script: 'echo $(sed -nE \'s/^\s*"version": "(.*?)",$/\1/p\' package.json',
+          returnStdout: true
+        ).trim()
+        echo "version: ${VERSION}"
         sh "docker build -t $REGISTRY/$IMAGE:latest --rm=true ."
         //sh './build-docker-image.sh'
         app = docker.image('192.168.56.101:5000/test-nodejs:latest')
