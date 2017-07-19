@@ -11,7 +11,7 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
 
     stage('Build image') {
         VERSION = sh (
-          script: 'echo $(sed -nE \'s/^\s*"version": "(.*?)",$/\1/p\' package.json',
+          script: 'echo $(sed -nE \'s/^\\s*"version": "(.*?)",$/\\1/p\' package.json',
           returnStdout: true
         ).trim()
         echo "version: ${VERSION}"
