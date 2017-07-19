@@ -39,7 +39,8 @@ docker.withRegistry("https://$REGISTRY", 'docker-registry-credentials-id') {
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
 
-        app.push("${env.BUILD_NUMBER}")
+        // app.push("${env.BUILD_NUMBER}")
+        app.push("${VERSION}")
         app.push("latest")
     }
 }
